@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Auxiliar - Salud y Vida</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="logo">
+                <img src="images/logo.webp" alt="Salud y Vida" style="height: 40px;">
+                <span>Salud y Vida</span>
+            </div>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="Usuario">
+                <span id="userName">Cargando...</span>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <h1>Panel de Auxiliar</h1>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3 id="totalAsociadas">0</h3>
+                    <p>Asociadas Activas</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="totalPagos">0</h3>
+                    <p>Pagos del Día</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h3>Registro de Pagos</h3>
+                <form id="pagoForm" style="padding: 1rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        <select id="usuario_id" required>
+                            <option value="">Seleccionar Asociada</option>
+                        </select>
+                        <input type="number" id="monto" placeholder="Monto" step="0.01" required>
+                        <input type="date" id="fecha_de_pago" required>
+                        <select id="metodo_de_pago" required>
+                            <option value="">Método de Pago</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar Pago</button>
+                </form>
+            </div>
+
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3>Asociadas Activas</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Plan</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuariosBody">
+                        <!-- Datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard-auxiliar.js"></script>
+</body>
+</html>

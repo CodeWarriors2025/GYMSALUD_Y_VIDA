@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Salud y Vida</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="logo">
+                <img src="images/logo.webp" alt="Salud y Vida" style="height: 40px;">
+                <span>Salud y Vida</span>
+            </div>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="Usuario">
+                <span id="userName">Cargando...</span>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <h1>Mi Perfil</h1>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3 id="planNombre">Cargando...</h3>
+                    <p>Mi Plan</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="ultimoPago">Cargando...</h3>
+                    <p>Último Pago</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="estado">Cargando...</h3>
+                    <p>Estado</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Datos Personales</h3>
+                    <form id="perfilForm">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                            <div>
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombre_completo" name="nombre_completo" required>
+                            </div>
+                            <div>
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fecha_de_nacimiento" name="fecha_de_nacimiento">
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input type="email" id="email" name="email" disabled>
+                            </div>
+                            <div>
+                                <label>Dirección</label>
+                                <input type="text" id="direccion" name="direccion">
+                            </div>
+                            <div>
+                                <label>Número de Contacto</label>
+                                <input type="tel" id="numero_de_contacto" name="numero_de_contacto">
+                            </div>
+                            <div>
+                                <label>EPS</label>
+                                <input type="text" id="eps" name="eps">
+                            </div>
+                            <div>
+                                <label>Estatura (cm)</label>
+                                <input type="number" id="estatura_cm" name="estatura_cm" step="0.01">
+                            </div>
+                            <div>
+                                <label>Peso (kg)</label>
+                                <input type="number" id="peso_kg" name="peso_kg" step="0.01">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Actualizar Perfil</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3>Mis Pagos</h3>
+                <table class="table" id="pagosTable">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Método</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pagosBody">
+                        <!-- Datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container" style="margin-top: 2rem;">
+                <h3>Mis Rutinas</h3>
+                <div id="rutinasContent">
+                    <!-- Contenido se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard-asociada.js"></script>
+</body>
+</html>
