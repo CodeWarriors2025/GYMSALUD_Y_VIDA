@@ -1,5 +1,6 @@
 const conexion = require('../db/conexion');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 function verificarToken(req) {
     const token = req.headers.authorization?.split(' ')[1];
@@ -62,6 +63,72 @@ function manejarRutaUsuarios(req, res, pathname, method, body, parsedUrl) {
             
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(results));
+        });
+    } else if (pathname === '/api/usuarios' && method === 'POST') {
+        // Verificar que el usuario sea auxiliar o administradora
+        if (userRole !== 'administradora' && userRole !== 'auxiliar') {
+            res.writeHead(403);
+            res.end(JSON.stringify({ error: 'Permiso denegado' }));
+            return;
+        }
+        
+        const {
+            numero_de_identificacion,
+            nombre_completo,
+            email,
+            numero_de_contacto,
+            plan_id
+        } = JSON.parse(body);
+        
+        // Validar que no exista
+        const checkQuery = 'SELECT * FROM usuarios WHERE email = ? OR numero_de_identificacion = ?';
+        conexion.query(checkQuery, [email, numero_de_identificacion], async (err, results) => {
+            if (err) {
+                res.writeHead(500);
+                res.end(JSON.stringify({ error: 'Error en la base de datos' }));
+                return;
+            }
+            
+            if (results.length > 0) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: 'Email o número de identificación ya registrado' }));
+                return;
+            }
+            
+            // Encriptar contraseña
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(numero_de_identificacion, saltRounds); // Contraseña = número de identificación
+            
+            const insertQuery = `
+                INSERT INTO usuarios (
+                    numero_de_identificacion, nombre_completo, email, numero_de_contacto, 
+                    contrasena, plan_id, rol, estado, fecha_de_ingreso
+                ) VALUES (?, ?, ?, ?, ?, ?, 'asociada', 'activo', ?)
+            `;
+            
+            const values = [
+                numero_de_identificacion,
+                nombre_completo,
+                email,
+                numero_de_contacto,
+                hashedPassword,
+                plan_id || null,
+                new Date().toISOString().split('T')[0]
+            ];
+            
+            conexion.query(insertQuery, values, (err, result) => {
+                if (err) {
+                    res.writeHead(500);
+                    res.end(JSON.stringify({ error: 'Error al registrar usuario' }));
+                    return;
+                }
+                
+                res.writeHead(201, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ 
+                    message: 'Usuario registrado exitosamente',
+                    id: result.insertId
+                }));
+            });
         });
     } else if (pathname === '/api/usuarios/buscar' && method === 'GET') {
         const { q } = parsedUrl.query;

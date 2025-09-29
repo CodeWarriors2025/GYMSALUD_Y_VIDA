@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         const formData = new FormData(form);
-        const email = formData.get('email');
+        const numero_identificacion = formData.get('numero_identificacion');
         const contrasena = formData.get('contrasena');
         
         try {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, contrasena })
+                body: JSON.stringify({ numero_identificacion, contrasena })
             });
             
             const data = await response.json();

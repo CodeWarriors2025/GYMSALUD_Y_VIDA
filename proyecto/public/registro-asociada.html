@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asociada - Salud y Vida</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Registro de Nueva Asociada</h2>
+            <form class="login-form" id="registroAsociadaForm">
+                <div class="form-group">
+                    <label for="numero_de_identificacion">Número de Identificación</label>
+                    <input type="text" id="numero_de_identificacion" name="numero_de_identificacion" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre_completo">Nombre Completo</label>
+                    <input type="text" id="nombre_completo" name="nombre_completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero_de_contacto">Número de Contacto</label>
+                    <input type="tel" id="numero_de_contacto" name="numero_de_contacto" required>
+                </div>
+                <div class="form-group">
+                    <label for="plan_id">Plan a contratar</label>
+                    <select id="plan_id" name="plan_id" required>
+                        <option value="">Seleccionar plan</option>
+                        <option value="1">Básico - $80.000</option>
+                        <option value="2">Semipersonal - $120.000</option>
+                        <option value="3">Premium - $150.000</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Asociada</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/registro-asociada.js"></script>
+</body>
+</html>

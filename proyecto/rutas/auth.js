@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 
 function manejarRutaAuth(req, res, pathname, method, body, parsedUrl) {
     if (pathname === '/api/auth/login' && method === 'POST') {
-        const { email, contrasena } = JSON.parse(body);
+        const { numero_identificacion, contrasena } = JSON.parse(body);
         
-        const query = 'SELECT * FROM usuarios WHERE email = ?';
-        conexion.query(query, [email], async (err, results) => {
+        const query = 'SELECT * FROM usuarios WHERE numero_de_identificacion = ?';
+        conexion.query(query, [numero_identificacion], async (err, results) => {
             if (err) {
                 res.writeHead(500);
                 res.end(JSON.stringify({ error: 'Error en la base de datos' }));

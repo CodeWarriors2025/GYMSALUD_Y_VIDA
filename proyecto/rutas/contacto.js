@@ -20,25 +20,29 @@ function manejarRutaContacto(req, res, pathname, method, body, parsedUrl) {
                 return;
             }
             
-            // Enviar correo de notificación (opcional)
+            // Configurar Nodemailer
             const transporter = nodemailer.createTransporter({
                 service: 'gmail',
                 auth: {
-                    user: process.env.EMAIL_USER || 'tu_email@gmail.com',
-                    pass: process.env.EMAIL_PASS || 'tu_contraseña'
+                    user: 'svgimnasio@gmail.com',
+                    pass: 'eadr bhhk lmiy xozc' // NO es tu contraseña normal
                 }
             });
             
+            // Enviar correo de notificación
             const mailOptions = {
-                from: process.env.EMAIL_USER || 'tu_email@gmail.com',
-                to: email,
-                subject: 'Confirmación de contacto - Salud y Vida',
-                text: `Hola ${nombre},\n\nHemos recibido tu mensaje:\n\n${mensaje}\n\nPronto nos pondremos en contacto contigo.\n\nSaludos,\nEquipo Salud y Vida`
+                from: 'svgimnasio@gmail.com',
+                to: 'svgimnasio@gmail.com', // Tu mismo correo
+                subject: `Nuevo mensaje de contacto de ${nombre}`,
+                text: `Nombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}\n\nFecha: ${new Date()}`
             };
             
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log('Error enviando correo:', error);
+                    // No detenemos el proceso si falla el correo
+                } else {
+                    console.log('Correo enviado:', info.response);
                 }
             });
             
